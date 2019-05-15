@@ -1,5 +1,6 @@
 install dependency:
 npm install -g qrcode
+pip install reportlab
 
 to generate qr codes launch:
 python generate\_qr\_codes.py places.json qr\_codes
