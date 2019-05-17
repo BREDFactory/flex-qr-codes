@@ -23,7 +23,7 @@ class Generator:
 		self.page_height = self.c._pagesize[1]
 		self.image_width = min([self.width, self.height])
 		self.image_height = self.image_width
-		self.character_width = self.c._fontsize * 0.54
+		self.character_width = self.c._fontsize * 0.25
 		self.character_height = self.c._fontsize * 0.39
 
 	def generate(self):
@@ -32,9 +32,9 @@ class Generator:
 			self.c.setFontSize(self.font_size)
 			for j, row in enumerate(chunker(page, self.nb_columns)):
 				for i, image in enumerate(row):
-					self.c.drawImage("{}/{}".format(self.qr_code_dir, image), self.width * i + self.width / 2 - self.image_width / 2, self.page_height - (self.height * j + self.image_height), self.image_width, self.image_height)
+					self.c.drawImage("{}/{}".format(self.qr_code_dir, image), self.width * i + (self.width / 4 * 3) - self.image_width / 2, self.page_height - (self.height * j + self.image_height), self.image_width, self.image_height)
 					image_name = os.path.splitext(image)[0]
-					self.drawRotatedString(270, self.width * i + self.width / 2 - self.image_width / 2 - self.text_height, self.page_height - (self.height * j + self.height / 2 - (len(image) * self.character_height) / 2), image_name)
+					self.c.drawString(self.width * i + self.width / 4 - (len(image_name) * self.character_width), self.page_height - (self.height * j + self.height / 2), image_name)
 			self.c.showPage()
 		self.c.save()
 
